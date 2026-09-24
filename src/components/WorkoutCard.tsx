@@ -1,5 +1,6 @@
 import { Exercise } from '@/type';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 
@@ -28,6 +29,7 @@ const WorkoutCard = ({ item }: { item: Exercise }) => {
           <span>⏱ {item.duration} min</span>
           <span>🔥 {item.caloriesBurned} kcal</span>
           <span>⭐ {item.rating}</span>
+          <Link href={`/workout/${item.id}`}>Details</Link>
         </div>
       </div>
     </div>
