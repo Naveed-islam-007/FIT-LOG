@@ -1,6 +1,7 @@
 import Image from "next/image";
 import AddToPlanButton from "@/components/AddToPlanButton";
 import { Exercise } from "@/type";
+import SaveButton from "@/components/SaveButton";
 
 interface IWorkoutDetailsPageProps {
   params: Promise<{
@@ -9,14 +10,11 @@ interface IWorkoutDetailsPageProps {
 }
 
 const getExercises = async () => {
-  try {
+  
     const response = await fetch("https://api.abcz.workers.dev/api/fitlog");
     const data = await response.json();
     return data;
-  } catch (error) {
-    console.error("Error fetching fitlog data:", error);
-    return [];
-  }
+  
 };
 
 const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
@@ -26,13 +24,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
     (exercise: Exercise) => Number(exercise.id) === Number(id),
   );
 
-  if (!item) {
-    return (
-      <div className="container mx-auto px-4 py-10 text-center text-white">
-        Exercise not found.
-      </div>
-    );
-  }
+  
 
   return (
     <div className="container mx-auto px-4 py-10 bg-black">
@@ -139,6 +131,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
           {/* Actions */}
           <div className="card-actions mt-4">
             <AddToPlanButton item={item} />
+            <SaveButton item={item}></SaveButton>
           </div>
         </div>
       </div>

@@ -92,7 +92,7 @@ export const Navbar = () => {
 
         <div className="navbar-end gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-gray-400">Plan</span>
+            <span className="text-gray-400"><Link href={'/Plans'}>Plan</Link></span>
 
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-lime-400 text-xs font-semibold text-black">
               0
@@ -100,7 +100,7 @@ export const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-gray-400">Saved</span>
+            <span className="text-gray-400"><Link href={'/Plans'}>Saved</Link></span>
 
             <span className="font-medium text-gray-200">0</span>
           </div>

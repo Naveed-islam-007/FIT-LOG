@@ -5,8 +5,8 @@ import banner from "@/assets/banner.png";
 
 const Banner = () => {
     return (
-        <div>
-             <section className="bg-neutral-900 rounded-2xl mx-4 my-6 px-8 py-10 md:px-14 md:py-14">
+        <div className='container mx-auto'>
+             <section className="bg-neutral-900 rounded-2xl mx-4 my-6 px-8 py-10 md:px-14 md:py-14 ">
       <div className="flex flex-col md:flex-row items-center justify-between gap-10">
         {/* Left: copy */}
         <div className="max-w-lg">
