@@ -2,54 +2,132 @@
 import React, { useContext } from 'react';
 import { WC } from '../context/WorkoutContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const PlanPage = () => {
-  const { plan, Save,setplan,setSave } = useContext(WC);
+const PlansPage = () => {
+  const { plan, Save, setplan, setSave } = useContext(WC);
 
-  const removeFromPlan = (id: number) => {
-    setplan(plan.filter((ex) => ex.id !== id));
+  const totalMinutes = plan.reduce((sum, ex) => sum + ex.duration, 0);
+  const totalCalories = plan.reduce((sum, ex) => sum + ex.caloriesBurned, 0);
+
+  const markAsDone = (id: number) => {
+    setplan(plan.filter((p) => p.id !== id));
   };
 
-  if (plan.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-10 text-center text-neutral-400">
-        Your workout plan is empty.
-      </div>
-    );
-  }
-
   return (
-    <div className="container mx-auto px-4 py-10">
-      <h1 className="mb-6 text-3xl font-extrabold text-white">Your Plan</h1>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {plan.map((exercise) => (
-          <div
-            key={exercise.id}
-            className="overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900"
-          >
-            <div className="relative h-40 w-full">
-              <Image
-                src={exercise.image}
-                alt={exercise.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <h2 className="text-lg font-bold text-white">{exercise.name}</h2>
-              <p className="text-sm text-neutral-400">{exercise.equipment}</p>
-              <button
-                onClick={() => removeFromPlan(exercise.id)}
-                className="btn btn-sm mt-3 border-none bg-red-500 text-white"
+    <div className="bg-black text-white p-6 container mx-auto min-h-screen">
+    
+      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex justify-between">
+        <div>
+          <p className="text-xs text-gray-400">Exercises</p>
+          <p className="text-2xl font-bold text-lime-400">{plan.length}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-400">Minutes</p>
+          <p className="text-2xl font-bold">{totalMinutes}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-400">Calories</p>
+          <p className="text-2xl font-bold">{totalCalories}</p>
+        </div>
+      </div>
+
+     
+      <div className="tabs tabs-lift mt-6">
+        <input
+          type="radio"
+          name="plan_tabs"
+          className="tab bg-black text-white"
+          aria-label="Today's Plan"
+          defaultChecked
+        />
+        <div className="tab-content bg-black border-zinc-800 p-6">
+          <div className="space-y-3">
+            {plan.map((ex) => (
+              <div
+                key={ex.id}
+                className="flex items-center gap-4 bg-zinc-900 border border-zinc-800 rounded-xl p-4"
               >
-                Remove
-              </button>
-            </div>
+                <Image
+                  src={ex.image}
+                  alt={ex.name}
+                  width={64}
+                  height={64}
+                  className="rounded-lg object-cover w-16 h-16"
+                />
+
+                <div className="flex-1">
+                  <p className="font-bold uppercase text-sm">{ex.name}</p>
+                  <p className="text-xs text-gray-400">{ex.equipment}</p>
+                  <div className="flex items-center gap-4 text-xs text-gray-300 mt-1">
+                    <span>🕒 {ex.duration} min</span>
+                    <span>🔥 {ex.caloriesBurned} kcal</span>
+                    <span>⭐ {ex.rating}</span>
+                  </div>
+                </div>
+
+                <button className="btn btn-sm btn-outline border-zinc-600 text-white">
+                  <Link href={`/workout/${ex.id}`}>View Details</Link>
+                </button>
+                <button
+                  onClick={() => markAsDone(ex.id)}
+                  className="btn btn-sm bg-lime-400 hover:bg-lime-300 text-black border-none"
+                >
+                  ✓ Mark as Done
+                </button>
+                <button
+                  onClick={() => setplan(plan.filter((p) => p.id !== ex.id))}
+                  className="text-gray-400 hover:text-red-400 px-2"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <input type="radio" name="plan_tabs" className="tab bg-black text-white" aria-label="Saved" />
+        <div className="tab-content bg-black border-zinc-800 p-6">
+          <div className="space-y-3">
+            {Save.map((ex) => (
+              <div
+                key={ex.id}
+                className="flex items-center gap-4 bg-zinc-900 border border-zinc-800 rounded-xl p-4"
+              >
+                <Image
+                  src={ex.image}
+                  alt={ex.name}
+                  width={64}
+                  height={64}
+                  className="rounded-lg object-cover w-16 h-16"
+                />
+
+                <div className="flex-1">
+                  <p className="font-bold uppercase text-sm">{ex.name}</p>
+                  <p className="text-xs text-gray-400">{ex.equipment}</p>
+                  <div className="flex items-center gap-4 text-xs text-gray-300 mt-1">
+                    <span>🕒 {ex.duration} min</span>
+                    <span>🔥 {ex.caloriesBurned} kcal</span>
+                    <span>⭐ {ex.rating}</span>
+                  </div>
+                </div>
+
+                <button className="btn btn-sm btn-outline border-zinc-600 text-white">
+                  <Link href={`/workout/${ex.id}`}>View Details</Link>
+                </button>
+                <button
+                  onClick={() => setSave(Save.filter((p) => p.id !== ex.id))}
+                  className="text-gray-400 hover:text-red-400 px-2"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default PlanPage;
+export default PlansPage;
