@@ -4,15 +4,14 @@ import { WC } from '../context/WorkoutContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Exercise } from '@/type';
+import { toast } from 'react-toastify';
 
 type SortKey = "duration" | "caloriesBurned" | "rating";
 
 const PlansPage = () => {
   const context = useContext(WC);
 
-  if (!context) {
-    throw new Error("PlansPage must be used within a WC.Provider");
-  }
+  
 
   const { plan, Save, setplan, setSave } = context;
   const [sortBy, setSortBy] = useState<SortKey>("duration");
@@ -29,6 +28,7 @@ const PlansPage = () => {
 
   const markAsDone = (id: number) => {
     setplan(plan.filter((p: Exercise) => p.id !== id));
+    toast.success('Done!')
   };
 
   return (

@@ -42,7 +42,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
 
         
         <div className="card-body justify-center lg:w-3/5 lg:p-10 text-white">
-          {/* Muscle Groups */}
+         
           <div className="flex flex-wrap items-center gap-2">
             {item.muscleGroups.map((tag: string) => (
               <span

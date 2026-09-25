@@ -29,7 +29,7 @@ const WorkoutCard = ({ item }: { item: Exercise }) => {
           <span>⏱ {item.duration} min</span>
           <span>🔥 {item.caloriesBurned} kcal</span>
           <span>⭐ {item.rating}</span>
-          <Link href={`/workout/${item.id}`}>Details</Link>
+          <Link href={`/workout/${item.id}`} className='btn btn-primary'>Details</Link>
         </div>
       </div>
     </div>

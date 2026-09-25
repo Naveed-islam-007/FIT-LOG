@@ -8,7 +8,7 @@ const Banner = () => {
         <div className='container mx-auto'>
              <section className="bg-neutral-900 rounded-2xl mx-4 my-6 px-8 py-10 md:px-14 md:py-14 ">
       <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* Left: copy */}
+       
         <div className="max-w-lg">
           <p className="text-lime-400 text-xs font-bold tracking-widest uppercase mb-3">
             Workout Library
@@ -24,14 +24,14 @@ const Banner = () => {
           </p>
 
           <Link
-            href="/workouts"
+            href="/"
             className="inline-block bg-lime-400 hover:bg-lime-300 text-black font-bold text-sm uppercase tracking-wide px-6 py-3 rounded-md transition-colors"
           >
             Browse Workouts
           </Link>
         </div>
 
-        {/* Right: illustration */}
+       
         <div className="shrink-0">
           <Image
             src={banner}
