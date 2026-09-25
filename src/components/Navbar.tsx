@@ -4,8 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/assets/logo.png";
+import { useContext } from "react";
+import { WC } from "@/app/context/WorkoutContext";
 
 export const Navbar = () => {
+   const { plan, Save } = useContext(WC);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -95,14 +98,14 @@ export const Navbar = () => {
             <span className="text-gray-400"><Link href={'/Plans'}>Plan</Link></span>
 
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-lime-400 text-xs font-semibold text-black">
-              0
+              {plan.length}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-gray-400"><Link href={'/Plans'}>Saved</Link></span>
 
-            <span className="font-medium text-gray-200">0</span>
+            <span className="font-medium text-gray-200">{Save.length}</span>
           </div>
         </div>
       </div>
