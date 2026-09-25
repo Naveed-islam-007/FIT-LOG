@@ -29,7 +29,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
   return (
     <div className="container mx-auto px-4 py-10 bg-black">
       <div className="card lg:card-side overflow-hidden border border-neutral-800 bg-black shadow-xl">
-        {/* Exercise Image */}
+       
         <figure className="relative bg-neutral-900 lg:w-2/5">
           <Image
             src={item.image}
@@ -40,7 +40,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
           />
         </figure>
 
-        {/* Exercise Details */}
+        
         <div className="card-body justify-center lg:w-3/5 lg:p-10 text-white">
           {/* Muscle Groups */}
           <div className="flex flex-wrap items-center gap-2">
@@ -54,15 +54,15 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
             ))}
           </div>
 
-          {/* Title */}
+         
           <h1 className="mt-3 text-3xl font-extrabold uppercase leading-tight text-white md:text-4xl">
             {item.name}
           </h1>
 
-          {/* Description */}
+         
           <p className="text-neutral-400">{item.description}</p>
 
-          {/* Exercise Information */}
+         
           <div className="my-4 overflow-hidden rounded-2xl border border-neutral-800">
             <div className="flex items-center justify-between bg-neutral-900 px-4 py-3 text-sm">
               <span className="text-xs uppercase text-neutral-500">
@@ -116,7 +116,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
             </div>
           </div>
 
-          {/* Instructions */}
+         
           <div className="mt-2">
             <h3 className="mb-2 text-lg font-bold text-white">
               Instructions
@@ -128,7 +128,7 @@ const WorkoutDetailsPage = async ({ params }: IWorkoutDetailsPageProps) => {
             </ol>
           </div>
 
-          {/* Actions */}
+         
           <div className="card-actions mt-4">
             <AddToPlanButton item={item} />
             <SaveButton item={item}></SaveButton>

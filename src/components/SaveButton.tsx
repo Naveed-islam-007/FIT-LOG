@@ -1,8 +1,9 @@
 'use client'
 import { WC } from '@/app/context/WorkoutContext';
+import { Exercise } from '@/type';
 import React, { useContext } from 'react';
 
-const SaveButton = ({ item }) => {
+const SaveButton = ({ item }: { item: Exercise }) => {
   const { Save, setSave } = useContext(WC);
 
   const handleSave = () => {

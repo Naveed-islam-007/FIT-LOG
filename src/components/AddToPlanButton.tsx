@@ -1,8 +1,9 @@
 'use client'
 import { WC } from '@/app/context/WorkoutContext';
+import { Exercise } from '@/type';
 import React, { useContext } from 'react';
 
-const AddToPlanButton = ({ item }) => {
+const AddToPlanButton = ({ item }: { item: Exercise }) => {
   const { plan, setplan } = useContext(WC);
 
   const handleAddToPlan = () => {

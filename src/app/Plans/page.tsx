@@ -1,22 +1,38 @@
 "use client";
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { WC } from '../context/WorkoutContext';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Exercise } from '@/type';
+
+type SortKey = "duration" | "caloriesBurned" | "rating";
 
 const PlansPage = () => {
-  const { plan, Save, setplan, setSave } = useContext(WC);
+  const context = useContext(WC);
+
+  if (!context) {
+    throw new Error("PlansPage must be used within a WC.Provider");
+  }
+
+  const { plan, Save, setplan, setSave } = context;
+  const [sortBy, setSortBy] = useState<SortKey>("duration");
 
   const totalMinutes = plan.reduce((sum, ex) => sum + ex.duration, 0);
   const totalCalories = plan.reduce((sum, ex) => sum + ex.caloriesBurned, 0);
 
+  const sortExercises = (list: Exercise[]): Exercise[] => {
+    return [...list].sort((a, b) => b[sortBy] - a[sortBy]);
+  };
+
+  const sortedPlan = sortExercises(plan);
+  const sortedSave = sortExercises(Save);
+
   const markAsDone = (id: number) => {
-    setplan(plan.filter((p) => p.id !== id));
+    setplan(plan.filter((p: Exercise) => p.id !== id));
   };
 
   return (
     <div className="bg-black text-white p-6 container mx-auto min-h-screen">
-    
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex justify-between">
         <div>
           <p className="text-xs text-gray-400">Exercises</p>
@@ -32,8 +48,19 @@ const PlansPage = () => {
         </div>
       </div>
 
-     
-      <div className="tabs tabs-lift mt-6">
+      <div className="flex justify-end mt-6">
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as SortKey)}
+          className="select bg-zinc-900 border-zinc-700 text-white"
+        >
+          <option value="duration">Duration</option>
+          <option value="caloriesBurned">Calories</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
+
+      <div className="tabs tabs-lift mt-4">
         <input
           type="radio"
           name="plan_tabs"
@@ -43,7 +70,7 @@ const PlansPage = () => {
         />
         <div className="tab-content bg-black border-zinc-800 p-6">
           <div className="space-y-3">
-            {plan.map((ex) => (
+            {sortedPlan.map((ex: Exercise) => (
               <div
                 key={ex.id}
                 className="flex items-center gap-4 bg-zinc-900 border border-zinc-800 rounded-xl p-4"
@@ -76,7 +103,7 @@ const PlansPage = () => {
                   ✓ Mark as Done
                 </button>
                 <button
-                  onClick={() => setplan(plan.filter((p) => p.id !== ex.id))}
+                  onClick={() => setplan(plan.filter((p: Exercise) => p.id !== ex.id))}
                   className="text-gray-400 hover:text-red-400 px-2"
                 >
                   ✕
@@ -89,7 +116,7 @@ const PlansPage = () => {
         <input type="radio" name="plan_tabs" className="tab bg-black text-white" aria-label="Saved" />
         <div className="tab-content bg-black border-zinc-800 p-6">
           <div className="space-y-3">
-            {Save.map((ex) => (
+            {sortedSave.map((ex: Exercise) => (
               <div
                 key={ex.id}
                 className="flex items-center gap-4 bg-zinc-900 border border-zinc-800 rounded-xl p-4"
@@ -116,7 +143,7 @@ const PlansPage = () => {
                   <Link href={`/workout/${ex.id}`}>View Details</Link>
                 </button>
                 <button
-                  onClick={() => setSave(Save.filter((p) => p.id !== ex.id))}
+                  onClick={() => setSave(Save.filter((p: Exercise) => p.id !== ex.id))}
                   className="text-gray-400 hover:text-red-400 px-2"
                 >
                   ✕

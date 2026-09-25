@@ -8,10 +8,11 @@ import { useContext } from "react";
 import { WC } from "@/app/context/WorkoutContext";
 
 export const Navbar = () => {
-   const { plan, Save } = useContext(WC);
+  const context = useContext(WC);
+  const { plan, Save } = context;
   const pathname = usePathname();
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string): boolean => pathname === path;
 
   return (
     <div className="bg-black">
@@ -49,7 +50,7 @@ export const Navbar = () => {
               </li>
 
               <li>
-                <Link href="/plans">My Plan</Link>
+                <Link href="/Plans">My Plan</Link>
               </li>
             </ul>
           </div>
@@ -95,7 +96,9 @@ export const Navbar = () => {
 
         <div className="navbar-end gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-gray-400"><Link href={'/Plans'}>Plan</Link></span>
+            <span className="text-gray-400">
+              <Link href={"/Plans"}>Plan</Link>
+            </span>
 
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-lime-400 text-xs font-semibold text-black">
               {plan.length}
@@ -103,7 +106,9 @@ export const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-gray-400"><Link href={'/Plans'}>Saved</Link></span>
+            <span className="text-gray-400">
+              <Link href={"/Plans"}>Saved</Link>
+            </span>
 
             <span className="font-medium text-gray-200">{Save.length}</span>
           </div>
