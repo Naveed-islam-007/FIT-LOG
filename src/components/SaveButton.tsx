@@ -5,7 +5,13 @@ import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const SaveButton = ({ item }: { item: Exercise }) => {
-  const { Save, setSave } = useContext(WC);
+ const context = useContext(WC);
+
+if (!context) {
+  throw new Error("Component must be used within a WC.Provider");
+}
+
+const { plan, Save, setplan, setSave } = context;
 
   const handleSave = () => {
     setSave([...Save, item]);

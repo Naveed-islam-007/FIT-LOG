@@ -9,11 +9,17 @@ import { toast } from 'react-toastify';
 type SortKey = "duration" | "caloriesBurned" | "rating";
 
 const PlansPage = () => {
-  const context = useContext(WC);
+ 
 
   
 
-  const { plan, Save, setplan, setSave } = context;
+ const context = useContext(WC);
+
+if (!context) {
+  throw new Error("Component must be used within a WC.Provider");
+}
+
+const { plan, Save, setplan, setSave } = context;
   const [sortBy, setSortBy] = useState<SortKey>("duration");
 
   const totalMinutes = plan.reduce((sum, ex) => sum + ex.duration, 0);

@@ -8,8 +8,13 @@ import { useContext } from "react";
 import { WC } from "@/app/context/WorkoutContext";
 
 export const Navbar = () => {
-  const context = useContext(WC);
-  const { plan, Save } = context;
+ const context = useContext(WC);
+
+if (!context) {
+  throw new Error("Component must be used within a WC.Provider");
+}
+
+const { plan, Save, setplan, setSave } = context;
   const pathname = usePathname();
 
   const isActive = (path: string): boolean => pathname === path;

@@ -5,8 +5,13 @@ import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 const AddToPlanButton = ({ item }: { item: Exercise }) => {
-  const { plan, setplan } = useContext(WC);
+ const context = useContext(WC);
 
+if (!context) {
+  throw new Error("Component must be used within a WC.Provider");
+}
+
+const { plan, Save, setplan, setSave } = context;
   const handleAddToPlan = () => {
     setplan([...plan, item]);
     toast.success('Added succesfully on plan!')
